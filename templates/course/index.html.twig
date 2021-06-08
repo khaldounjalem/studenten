@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course index{% endblock %}
+
+{% block body %}
+<div class="container">
+        <div class="">
+                {{ form_start(searchForm) }}
+        <div class="row">
+            <div class="col-3 mt-3">
+                Enter plase Number Course            
+            </div>        
+            <div class="col-4 mt-2">
+                {{ form_row(searchForm.mots) }}            
+            </div>
+            <div class="col-3">
+        <button class="btn btn-success mt-2 mb-3">Search</button>
+            </div>
+        {{ form_end(searchForm) }}
+        </div>
+     <div>
+    <a href="{{ path('course_new') }}">Create new Course</a>
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumCourse</th>                
+                <th>NameCourse</th>
+                <th>StartDate</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Teacher</th>
+                <th>Price</th>
+                <th>EndDate</th>
+                <th>NumLessons</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ course.numcourse }}</td>            
+                <td>{{ course.namecourse }}</td>
+                <td>{{ course.startdate ? course.startdate|date('Y-m-d') : '' }}</td>
+                <td>{{ course.day }}</td>
+                <td>{{ course.time ? course.time|date('H:i:s') : '' }}</td>
+                <td>{{ course.teacher }}</td>
+                <td>{{ course.price }}</td>
+                <td>{{ course.enddate ? course.enddate|date('Y-m-d') : '' }}</td>
+                <td>{{ course.numlessons }}</td>
+                <td>
+                <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{#
+<div class="navigation mt-5">
+    {{ knp_pagination_render(courses)}}
+</div>
+#}
+{% endblock %}

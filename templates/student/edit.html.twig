@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block body %}
+    <p>Edit Student</p>
+
+   <div class="container-fluid ">
+            {{ form_start(form) }}
+        <div class="row ">
+                <div class="col-4">
+                        {{ form_row(form.fullname) }}
+                </div>        
+                <div class="col-4">
+                        {{ form_row(form.numstudent) }}
+                </div>        
+
+                <div class="col-4">
+                        {{ form_row(form.father) }}
+                </div>                
+        </div>
+        <div class="row ">
+                <div class="col-4">
+                        {{ form_row(form.mother) }}
+                </div>
+                <div class="col-4">
+                        {{ form_row(form.placeofbirth) }}
+                </div>  
+                <div class="col-4">
+                        {{ form_row(form.dateofbirth) }}
+                </div>                               
+        </div> 
+        <div class="row ">
+                <div class="col-6">
+                        {{ form_row(form.studying) }}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.nationality) }}
+                </div>                
+        </div>  
+        <div class="row ">
+                <div class="col-4">
+                        {{ form_row(form.telephone) }}
+                </div>
+                <div class="col-8">
+                        {{ form_row(form.adress) }}
+                </div>                
+        </div>              
+                        <button class="btn">{{ button_label|default('Update') }}</button>
+                        {{ form_end(form) }}
+    </div>
+
+    <a href="{{ path('student_index') }}">back to list</a>
+     
+    {{ include('student/_delete_form.html.twig') }}
+{% endblock %}

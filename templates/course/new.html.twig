@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Course{% endblock %}
+
+{% block body %}
+    <p>Create new Course</p>
+
+    <div class="container-fluid ">
+            {{ form_start(form) }}
+        <div class="row ">
+                <div class="col-4">
+                        {{ form_row(form.namecourse) }}
+                </div>        
+                <div class="col-3">
+                        {{ form_row(form.numcourse) }}
+                </div>        
+
+                <div class="col-4">
+                        {{ form_row(form.startdate) }}
+                </div>                
+        </div>
+        <div class="row ">
+                <div class="col-6">
+                        {{ form_row(form.day) }}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.time) }}
+                </div>                
+        </div>  
+        <div class="row ">
+                <div class="col-6">
+                        {{ form_row(form.teacher) }}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.price) }}
+                </div>                
+        </div>
+        <div class="row ">
+                <div class="col-6">
+                        {{ form_row(form.enddate) }}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.numlessons) }}
+                </div>                
+        </div>                      
+                        <button class="btn">{{ button_label|default('Save') }}</button>
+                        {{ form_end(form) }}
+    </div>
+
+
+    <a href="{{ path('course_index') }}">back to list</a>
+{% endblock %}

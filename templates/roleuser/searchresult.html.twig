@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+<div class="container">
+        <div>
+                {{ form_start(searchForm) }}
+        <div class="row">
+            <div class="col-4 mt-3">
+                Enter plase Number Sudent Or Name            
+            </div>        
+            <div class="col-4 mt-2">
+                {{ form_row(searchForm.mots) }}            
+            </div>
+            <div class="col-1">
+        <button class="btn btn-success mt-2 mb-3">Search</button>
+            </div>
+        {{ form_end(searchForm) }}
+        </div>
+
+    {% if searchForm.vars.submitted %}
+    {% if searchForm %}
+            <table class="table table-hover mt-2" style="text-align: center;">
+                    <thead>
+                        <tr>
+                            <th>Num Student*</th>
+                            <th>Full Name*</th>                
+                            <th>Father</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for s in students %}
+                        <tr>
+                            <td>{{ s.numstudent }}</td>
+                            <td>{{ s.fullname }}</td>                
+                            <td>{{ s.father }}</td>
+                        </tr>
+                    {% set studentresult = s.id %}                          
+                    {% else %}
+                        <tr>
+                            <td colspan="13">no records found</td>
+                        </tr>
+   
+                    {% endfor %}
+                    </tbody>
+            </table> 
+              
+
+    <table  class="table table-hover" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>NumStudent</th>
+                <th>Course</th>
+                <th>Degree</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultstudent in resultstudents %}
+                {% if resultstudent.id == studentresult %}
+                    <tr>
+                        <td>{{ resultstudent.numstudent }}</td>
+                        <td>{{ resultstudent.namecourse }}</td>
+                        <td>{{ resultstudent.degree }}</td>
+                        <td>{{ resultstudent.result }}</td>
+                    </tr>
+                {% endif %} 
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+                
+            {% endfor %}        
+    {% endif %}
+        {% endif %}
+        </tbody>
+    </table>         
+</div>
+{% endblock %}

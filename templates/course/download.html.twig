@@ -1,0 +1,114 @@
+{% extends 'basepdf.html.twig' %}
+{% block title %}Course{% endblock %}
+
+{% block body %}
+
+<div class="container">
+                 <table class="table table-hover mt-2 " style="">
+                    <thead>
+                        <tr>
+                            <th>NumCourse*</th>                
+                            <th>NameCourse*</th>
+                            <th>StartDate</th>                
+                            <th>Day</th>
+                            <th>Time</th>                
+                            <th>Teacher</th>
+                            <th>EndDate</th>                
+                            <th>NumLessons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for s in courses %}
+                        <tr>
+                            <td>{{ s.numcourse }}</td>                
+                            <td>{{ s.namecourse }}</td>
+                            <td>{{ s.startdate ? s.startdate|date('Y-m-d') : '' }}</td>
+                            <td>{{ s.day }}</td>                
+                            <td>{{ s.time ? s.time|date('H:i:s') : '' }}</td>
+                            <td>{{ s.teacher }}</td>
+                            <td>{{ s.enddate ? s.enddate|date('Y-m-d') : '' }}</td>
+                            <td>{{ s.numlessons }}</td>                
+                        </tr>
+                    {% set searchcourse = s.id %}
+                    {% else %}
+                        <tr>
+                            <td colspan="13">no records found</td>
+                        </tr>
+   
+                    {% endfor %}
+                    
+                    </tbody>
+            </table> 
+ 
+
+    <table  class="table table-hover" style="">
+        <thead>
+            <tr>
+                <th>No</th>             
+                <th>NumStudent</th>
+                <th>FullName</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th> 
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th> 
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th> 
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>20</th>                                                                                                                
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultcourse in resultcourses %}
+                {% if resultcourse.id == searchcourse %}
+                        {% set counter = ( counter | default(0) ) + 1 %}
+                        <tr>
+                        <th scope="row">{{counter}}</th>
+                        <td>{{ resultcourse.numstudent }}</td>
+                        <td>{{ resultcourse.fullname  }}</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>  
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>                                                                                                                                              
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>
+                        <td>[]</td>                        
+                    </tr>
+                {% endif %} 
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+                
+            {% endfor %}
+                
+
+
+        </tbody>
+    </table>  
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Studentdetaill{% endblock %}
+
+{% block body %}
+    <p>Edit Studentdetaill</p>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Update') }}</button>
+{{ form_end(form) }}
+
+{#
+    {{ include('studentdetaill/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('studentdetaill_index') }}">back to list</a>
+        {{ include('studentdetaill/_delete_form.html.twig') }}
+#}
+<a class="btn" onClick="window.history.back();" >back to list double click</a>
+
+
+{% endblock %}

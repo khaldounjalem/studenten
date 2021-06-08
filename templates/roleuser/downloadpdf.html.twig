@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}brochure{% endblock %}
+
+{% block body %}
+
+    <dir class="container">
+
+
+    <table class="table table-hover mt-2">
+        <thead>
+            <tr>
+            <th scope="col">No</th>
+            <th colspan="2" scope="col">brochure</th>
+            <th scope="col">Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for s in products %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ s.brochureFilename }}</td>
+                <td>
+                <a href="{{ asset('uploads/brochures/' ~ s.brochureFilename) }}", target="_blank">View brochure (PDF)</a>
+                </td>
+                <td>{{ s.createdAt | date('d-m-y')}} Uhr {{ s.createdAt | date('H:i')}}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </dir>
+
+{% endblock %}
+
+
+
+
+
+

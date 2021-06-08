@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course{% endblock %}
+
+{% block body %}
+    <p>Course</p>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ course.id }}</td>
+            </tr>
+            <tr>
+                <th>Namecourse</th>
+                <td>{{ course.namecourse }}</td>
+            </tr>
+            <tr>
+                <th>Numcourse</th>
+                <td>{{ course.numcourse }}</td>
+            </tr>
+            <tr>
+                <th>Numdetaillcourse</th>
+                <td>{{ course.numdetaillcourse }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{{ course.startdate ? course.startdate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Day</th>
+                <td>{{ course.day }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ course.time ? course.time|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Teacher</th>
+                <td>{{ course.teacher }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ course.price }}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{{ course.enddate ? course.enddate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Numlessons</th>
+                <td>{{ course.numlessons }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('course_index') }}">back to list</a>
+
+    <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+
+    {{ include('course/_delete_form.html.twig') }}
+{% endblock %}

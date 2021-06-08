@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+<div class="container">
+
+        <div>
+                {{ form_start(searchForm) }}
+        <div class="row">
+            <div class="col-4 mt-3">
+                Enter plase Number Sudent Or Name            
+            </div>        
+            <div class="col-4 mt-2">
+                {{ form_row(searchForm.mots) }}            
+            </div>
+            <div class="col-1">
+        <button class="btn btn-success mt-2 mb-3">Search</button>
+            </div>
+        {{ form_end(searchForm) }}
+        </div>
+
+     <div>
+    <a href="{{ path('student_new') }}">Create new Student</a>
+    </div>
+    <table class="table table-hover mt-2" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumStudent*</th>                
+                <th>FullName*</th>                
+                <th>Father</th>
+                <th>Mother</th>
+                <th>PlaceOfBirth</th>
+                <th>DateOfBirth*</th>                
+                <th>Studying</th>
+                <th>Nationality</th>
+                <th>Telephone*</th>
+                <th>Adress</th>
+{#                
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Status</th>
+#}                
+                <th colspan="2">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for s in students %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ s.numstudent }}</td>                
+                <td>{{ s.fullname }}</td>                
+                <td>{{ s.father }}</td>
+                <td>{{ s.mother }}</td>
+                <td>{{ s.placeofbirth }}</td>
+                <td>{{ s.dateofbirth }}</td>                
+                <td>{{ s.studying }}</td>
+                <td>{{ s.nationality }}</td>
+                <td>{{ s.telephone }}</td>
+                <td>{{ s.adress }}</td>
+{#                
+                <td>{{ s.createdAt ? s.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ s.updatedAt ? s.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ s.status }}</td>
+#}                  
+                <td>
+                <a href="{{ path('student_edit', {'id': s.id}) }}">edit</a>
+                <a class="" href="{{path('student_showwithdetaill', {'id' : s.id})}}">Detaill</a>
+                </td>                
+              
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{#
+<div class="navigation mt-5">
+    {{ knp_pagination_render(students)}}
+</div>
+#}
+
+{% endblock %}

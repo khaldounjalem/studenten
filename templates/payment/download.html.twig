@@ -1,0 +1,50 @@
+{% extends 'basepdf.html.twig' %}
+{% block title %}Payment{% endblock %}
+{% block body %}
+<div class="container">
+    <table class="table table-hover" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Fullname</th>                  
+ 
+                <th>Father</th>              
+                <th>Amount</th>
+                <th>ArtCours</th>                
+                <th>Numpayment</th>                
+                <th>Type</th>
+                <th>Notes</th>
+                <th>CreatedAt</th>                
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment in paymentstocks %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ payment.student.fullname }}</td>                
+  
+                <td>{{ payment.student.father }}</td>                
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.artcours }}</td>                
+                <td>{{ payment.numpayment }}</td>
+                <td>{{ payment.type }}</td>
+                <td>{{ payment.notes }}</td>
+                <td>{{ payment.createdAt | date('d-m-y')}} Uhr {{ payment.createdAt | date('H:i')}}
+                {% set amounttotal = amounttotal + payment.amount %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total : </td>
+                    <td>{{ amounttotal }}</td>
+                    <td colspan="5"></td>
+                </tr>
+    </table>
+</div>
+{% endblock %}

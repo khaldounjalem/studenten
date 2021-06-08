@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment index{% endblock %}
+
+{% block body %}
+    <a href="{{ path('payment_new') }}">Create new Payment</a>
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fullname</th>                  
+ 
+                <th>Father</th>              
+                <th>Amount</th>
+                <th>ArtCours</th>                
+                <th>Numpayment</th>                
+                <th>Type</th>
+                <th>Notes</th>
+                <th>CreatedAt</th>                
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ payment.student.fullname }}</td>                
+  
+                <td>{{ payment.student.father }}</td>                
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.artcours }}</td>                
+                <td>{{ payment.numpayment }}</td>
+                <td>{{ payment.type }}</td>
+                <td>{{ payment.notes }}</td>
+                <td>{{ payment.createdAt | date('d-m-y')}} Uhr {{ payment.createdAt | date('H:i')}}
+                <td>
+                    <a href="{{ path('payment_show', {'id': payment.id}) }}">show</a>
+                    <a href="{{ path('payment_edit', {'id': payment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="navigation mt-5">
+    {{ knp_pagination_render(payments)}}
+</div>
+
+{% endblock %}

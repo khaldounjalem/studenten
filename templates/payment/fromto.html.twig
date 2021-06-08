@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %}Payment index{% endblock %}
+{% block body %}
+<div class="container">
+
+        <div>
+                {{ form_start(searchForm) }}
+        <div class="row">
+            <div class="col-1 mt-3">
+              From           
+            </div>        
+            <div class="col-3 mt-2">
+                {{ form_row(searchForm.from) }}            
+            </div>
+            <div class="col-1 mt-3">
+                To           
+            </div>              
+            <div class="col-3 mt-2">
+                {{ form_row(searchForm.to) }}            
+            </div> 
+            <div class="col-1 mt-3">
+                And           
+            </div>             
+            <div class="col-2 mt-2">
+                {{ form_row(searchForm.mots) }}            
+            </div>                        
+            <div class="col-1">
+        <button class="btn btn-success mt-2 mb-3">Search</button>
+            </div>
+        {{ form_end(searchForm) }}
+        </div>
+<a class="btn btn-success" href="{{path('payment_data')}}">Exporte PDF</a>        
+    <table class="table table-hover" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fullname*</th>                  
+                 <th>Father</th>              
+                <th>Amount*</th>
+                <th>ArtCours</th>                
+                <th>Numpayment*</th>                
+                <th>Type</th>
+                <th>Notes</th>
+                <th>CreatedAt</th>                
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+          {% set counter = ( counter | default(0) ) + 1 %}
+          <tr>
+            <th scope="row">{{counter}}</th>
+                <td>{{ payment.fullname }}</td>                
+  
+                <td>{{ payment.father }}</td>                
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.artcours }}</td>                
+                <td>{{ payment.numpayment }}</td>
+                <td>{{ payment.type }}</td>
+                <td>{{ payment.notes }}</td>
+                <td>{{ payment.created_at | date('d-m-y')}} Uhr {{ payment.created_at | date('H:i')}}
+                {% set amounttotal = amounttotal + payment.amount %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total : </td>
+                    <td>{{ amounttotal }}</td>
+                    <td colspan="5"></td>
+                </tr>
+    </table>
+    
+            
+
+
+{#
+<div class="navigation mt-5">
+    {{ knp_pagination_render(payments)}}
+</div>
+#}
+</div>
+{% endblock %}

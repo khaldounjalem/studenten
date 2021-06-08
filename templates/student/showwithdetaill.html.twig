@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <table class="table table-hover mt-2  center" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Fullname</th>
+                <th>Father</th>
+                <th>Mother</th>
+                <th>PlaceOfBirth</th>
+                <th>DateOfBirth</th>                
+                <th>Studying</th>
+                <th>Nationality</th>
+                <th>Telephone</th>
+                <th>Adress</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% if student %}
+            <tr>
+                <td>{{ student.numstudent }}</td>
+                <td>{{ student.fullname }}</td>
+                <td>{{ student.father }}</td>
+                <td>{{ student.mother }}</td>
+                <td>{{ student.placeofbirth }}</td>
+                <td>{{ student.dateofbirth }}</td>                
+                <td>{{ student.studying }}</td>
+                <td>{{ student.nationality }}</td>
+                <td>{{ student.telephone }}</td>
+                <td>{{ student.adress }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+        <p>Student Detaill</p>
+
+    <table  class="table table-hover" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>NumCourse</th>            
+                <th>Course</th>
+                <th>Degree</th>
+                <th>Result</th>
+                <th>StartDate</th>
+                <th>Price</th>
+                <th colspan="2">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set studentid = 0 %}
+        {% for s in result %}
+            <tr>
+                <td>{{ s.numcourse }}</td>            
+                <td>{{ s.namecourse }}</td>
+                <td>{{ s.degree }}</td>
+                <td>{{ s.result }}</td>
+                <td>{{ s.startdate ? s.startdate|date('Y-m-d') : '' }}</td>
+                <td>{{ s.price }}</td>
+                <td>
+                <a href="{{ path('studentdetaill_edit', {'id': s.idstudentdetaill}) }} "  data-token="{{ csrf_token('edit' ~ s.id )}}">Edit</a>
+                </td>
+                <td>
+                <a href="{{ path('studentdetaill_delete', {'id': s.idstudentdetaill})}}" data-delete data-token="{{ csrf_token('delete' ~ s.idstudentdetaill )}}">Delete</a>
+                 </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+              {% for resultTotal in resultTotals %}
+                  <tr>
+                  <td colspan="4"></td>
+                  <td>Total Price</td>
+                  <td>{{resultTotal.SumOfprice |number_format(2)}} </td>
+                  </tr>
+                {% set totalprice = resultTotal.SumOfprice %}
+              {% endfor %}       
+        </tbody>
+    </table>
+
+        <a class="btn" onClick="window.location.reload()">Refresh</a>
+        <div class="form_general">
+        {{ form_start(form) }}
+        {{ form_row(form.courses) }}
+        <div class="hidden">
+        {{ form_row(form.degree) }}
+        {{ form_row(form.result) }}
+        </div>
+
+        <button class="btn btn-success mt-2">Add Cours</button>
+        {{ form_end(form) }}
+        </div>
+
+    <p>Payment</p>
+
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Student</th>                
+                <th>Amount</th>
+                <th>Numpayment</th>                
+                <th>Date</th>                
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment in resultpayments %}
+
+            <tr>
+                <td>{{ payment.numstudent }}</td>
+                <td>{{ payment.fullname }}</td>                
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.numpayment }}</td>
+                <td>{{ payment.created_at | date('d-m-y')}} Uhr {{ payment.created_at | date('H:i')}}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+          
+        {% endfor %}
+              {% for resulttotalpayment in resulttotalpayments %}
+                  <tr>
+                  <td colspan="2">Total Payment</td>
+                  <td>{{resulttotalpayment.SumOfamount |number_format(2)}} </td>
+                  </tr>
+                {% set totalpayment = resulttotalpayment.SumOfamount %}  
+              {% endfor %}   
+        </tbody>
+    </table>
+
+        <div class="row mb-3">
+                <div class="col-8">
+                </div> 
+               <div class="col-4">
+                The Rest :   {{totalprice - totalpayment}} 
+                </div>  
+        </div>          
+</div>
+{% endblock %}
+ 
